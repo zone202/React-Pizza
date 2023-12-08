@@ -105,16 +105,16 @@ function Menu() {
   );
 }
 
-function Pizza(props) {
-  if (props.pizzaObject.soldOut) return null;
+function Pizza({ pizzaObject }) {
+  if (pizzaObject.soldOut) return null;
 
   return (
     <li className="pizza">
-      <img src={props.pizzaObject.photoName} alt={props.pizzaObject.name} />
+      <img src={pizzaObject.photoName} alt={pizzaObject.name} />
       <div>
-        <h3>{props.pizzaObject.name}</h3>
-        <p>{props.pizzaObject.ingredients}</p>
-        <span>{props.pizzaObject.price}</span>
+        <h3>{pizzaObject.name}</h3>
+        <p>{pizzaObject.ingredients}</p>
+        <span>{pizzaObject.price}</span>
       </div>
     </li>
   );
@@ -122,7 +122,7 @@ function Pizza(props) {
 
 function Footer() {
   const hour = new Date().getHours();
-  const openHour = 21;
+  const openHour = 12;
   const closeHour = 22;
   const isOpen = hour > openHour && hour <= closeHour;
 
@@ -140,10 +140,7 @@ function Footer() {
   return (
     <footer className="footer">
       {isOpen ? (
-        <div className="order">
-          <p>We're Open until {closeHour}:00. Come visit us or order online!</p>
-          <button className="btn">Order</button>
-        </div>
+        <Order closeHour={closeHour} openHour={openHour} />
       ) : (
         <p>
           We're Happy to welcome you between {openHour}:00 and {closeHour}
@@ -153,6 +150,18 @@ function Footer() {
     </footer>
   );
   //   return React.createElement("footer", null, "We're currently open!");
+}
+
+function Order({ closeHour, openHour }) {
+  return (
+    <div className="order">
+      <p>
+        We're Open from {openHour}:00 until {closeHour}:00. Come visit us or
+        order online!
+      </p>
+      <button className="btn">Order</button>
+    </div>
+  );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
